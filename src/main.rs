@@ -24,7 +24,7 @@ fn main() {
 
     let mut count: i64 = 1;
 
-    let server = tiny_http::Server::http("127.0.0.1:4242").unwrap();
+    let server = tiny_http::Server::http("0.0.0.0:4242").unwrap();
     loop {
 
         let req : tiny_http::Request = match server.recv() {
