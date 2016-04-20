@@ -22,7 +22,7 @@ fn main() {
         )",  &[]).unwrap();
 
 
-    let mut count: i64 = 0;
+    let mut count: i64 = 1;
 
     let server = tiny_http::Server::http("127.0.0.1:4242").unwrap();
     loop {
@@ -35,7 +35,12 @@ fn main() {
         match *req.method() {
             tiny_http::Method::Get => handle_get(req, &conn, count),
             tiny_http::Method::Post => {if handle_post(req, &conn) {
-                count += 1;
+                if count > (count + 1) {
+                    // Overflow.. ^^
+                    count = 1;
+                } else {
+                    count += 1;
+                }
             }},
             _ => {}
         }
